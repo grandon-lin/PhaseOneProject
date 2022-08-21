@@ -36,10 +36,8 @@ public class AmazonProductSearch {
 			System.out.println("Item name: " + itemName + " Price: " + price);
 		}
 		
-		WebElement firstItem = driver.findElement(By.xpath("//div[@data-component-type='s-search-result']//h2/a"));
-		String firstItemName = driver.findElement(By.xpath("//div[@data-component-type='s-search-result']//h2/a/span")).getText();
-		firstItem.click();
-		
+		searchResultNames.get(0).click();
+		String firstItemName = driver.findElement(By.xpath("//div[@data-component-type='s-search-result']//h2/a/span")).getText();		
 		
 		Set<String> allWindows = driver.getWindowHandles();
 		
@@ -61,6 +59,7 @@ public class AmazonProductSearch {
 			System.out.println("It's not the same product");
 		}
 		
+		driver.quit();
 	}
 
 }
