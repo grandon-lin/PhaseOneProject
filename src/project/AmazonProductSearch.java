@@ -37,7 +37,7 @@ public class AmazonProductSearch {
 		}
 		
 		searchResultNames.get(0).click();
-		String firstItemName = driver.findElement(By.xpath("//div[@data-component-type='s-search-result']//h2/a/span")).getText();		
+		String firstItemName = searchResultNames.get(0).getText();		
 		
 		Set<String> allWindows = driver.getWindowHandles();
 		
