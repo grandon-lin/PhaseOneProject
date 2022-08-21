@@ -1,6 +1,7 @@
 package project;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -23,6 +24,8 @@ public class AmazonProductSearch {
 		WebElement searchBtn = driver.findElement(By.id("nav-search-submit-button"));
 		searchBtn.click();
 		
+		String parentWin = driver.getWindowHandle();
+		
 		List<WebElement> searchResultNames = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']//h2/a/span"));
 		List<WebElement> searchResultPrices = driver.findElements(By.xpath("//div[@data-component-type='s-search-result']//span[@class='a-price']//span[@class='a-price-whole']"));
 		
@@ -34,7 +37,30 @@ public class AmazonProductSearch {
 		}
 		
 		WebElement firstItem = driver.findElement(By.xpath("//div[@data-component-type='s-search-result']//h2/a"));
+		String firstItemName = driver.findElement(By.xpath("//div[@data-component-type='s-search-result']//h2/a/span")).getText();
 		firstItem.click();
+		
+		
+		Set<String> allWindows = driver.getWindowHandles();
+		
+		for(String win : allWindows)
+		{			
+			if(!win.equals(parentWin))
+			{
+				driver.switchTo().window(win);
+			}
+		}
+		
+		String productName = driver.findElement(By.id("productTitle")).getText();
+		if(firstItemName.equals(productName))
+		{
+			System.out.println("It's the same product");
+		}
+		else
+		{
+			System.out.println("It's not the same product");
+		}
+		
 	}
 
 }
